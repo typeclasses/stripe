@@ -1,7 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
 
-{-# LANGUAGE LambdaCase #-}
-
 {- | For a typical webhook server implemented with Scotty, probably the only
 thing you need from this module is one of these two actions:
 
@@ -113,10 +111,8 @@ missingKeyAction mode =
 
     t = Data.Text.Lazy.Builder.fromString
 
-    modeString =
-        \case
-            Stripe.LiveMode -> "live"
-            Stripe.TestMode -> "test"
+    modeString Stripe.LiveMode = "live"
+    modeString Stripe.TestMode = "test"
 
 chooseSecret
     :: Stripe.Mode
@@ -188,18 +184,12 @@ getSig =
 -- Internal Aeson decoding functions
 
 aesonAttr :: String -> Data.Aeson.Value -> Maybe Data.Aeson.Value
-aesonAttr x =
-    aesonObject >=>
-    Data.HashMap.Strict.lookup (Data.Text.pack x)
+aesonAttr x = aesonObject >=> Data.HashMap.Strict.lookup (Data.Text.pack x)
 
 aesonObject :: Data.Aeson.Value -> Maybe Data.Aeson.Object
-aesonObject =
-    \case
-        Data.Aeson.Object x -> Just x
-        _ -> Nothing
+aesonObject (Data.Aeson.Object x) = Just x
+aesonObject _ = Nothing
 
 aesonBool :: Data.Aeson.Value -> Maybe Bool
-aesonBool =
-    \case
-        Data.Aeson.Bool x -> Just x
-        _ -> Nothing
+aesonBool (Data.Aeson.Bool x) = Just x
+aesonBool _ = Nothing
