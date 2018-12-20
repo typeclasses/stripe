@@ -46,6 +46,8 @@ import qualified Data.Aeson
 import qualified Control.Exception
 import           Control.Monad     ((>=>))
 import qualified Data.Bifunctor
+import qualified Data.Monoid
+import qualified Data.Semigroup
 import           Prelude           hiding (userError)
 
 -- bytestring
@@ -246,11 +248,11 @@ data Error =
     }
     deriving (Eq, Show)
 
-instance Semigroup Error
+instance Data.Semigroup.Semigroup Error
   where
     Error x y <> Error x' y' = Error (x <> x') (y <> y')
 
-instance Monoid Error
+instance Data.Monoid.Monoid Error
   where
     mempty = Error mempty mempty
 
