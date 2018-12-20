@@ -14,8 +14,7 @@ import           Numeric.Natural (Natural)
 import qualified Text.Read
 
 -- bytestring
-import           Data.ByteString (ByteString)
-import qualified Data.ByteString
+import Data.ByteString (ByteString)
 
 -- cryptonite
 import Crypto.Hash     (SHA256)
