@@ -2,6 +2,7 @@ name: stripe-wreq
 version: 0.1.0.0
 
 synopsis: Use the Stripe API via Wreq
+category: Web
 
 description:
     This package helps you make requests to the

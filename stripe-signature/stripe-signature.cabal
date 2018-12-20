@@ -2,6 +2,7 @@ name: stripe-signature
 version: 0.1.0.0
 
 synopsis: Verification of Stripe webhook signatures
+category: Web
 
 description:
     When <https://stripe.com/ Stripe> sends an event to your webhook, it

@@ -2,6 +2,7 @@ name: stripe-concepts
 version: 0.1.0.0
 
 synopsis: Types for the Stripe API
+category: Web
 
 description:
     This is a minimal package that just defines a common set of types

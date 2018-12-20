@@ -2,6 +2,7 @@ name: stripe-scotty
 version: 0.1.0.0
 
 synopsis: Listen for Stripe webhook events with Scotty
+category: Web
 
 description:
     This package provides support for writing a
