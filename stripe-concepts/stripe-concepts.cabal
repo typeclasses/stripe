@@ -29,6 +29,6 @@ library
         Stripe.Concepts
 
     build-depends:
-        base
+        base >=4.10 && <5
       , bytestring
       , text

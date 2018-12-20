@@ -30,7 +30,7 @@ library
 
     build-depends:
         aeson
-      , base
+      , base >=4.10 && <5
       , bytestring
       , http-types
       , scotty
