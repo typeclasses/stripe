@@ -44,7 +44,12 @@ digest (WebhookSecretKey secret) time body =
     HMAC.hmac secret (signedPayload time body)
 
 signedPayload :: Natural -> ByteString -> ByteString
-signedPayload time body = natBytes time <> encodeAscii "." <> body
+signedPayload time body =
+    mconcat
+        [ natBytes time
+        , encodeAscii "."
+        , body
+        ]
 
 {- | Convert a natural number to the ASCII encoding of its decimal
 representation. -}

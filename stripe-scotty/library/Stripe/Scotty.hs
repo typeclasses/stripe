@@ -105,14 +105,15 @@ missingKeyAction mode =
     Web.Scotty.text message
     Web.Scotty.finish
   where
-    message = Data.Text.Lazy.Builder.toLazyText $
-        t "Configuration error: No webhook secret for " <>
-        t (modeString mode) <> t " mode."
-
-    t = Data.Text.Lazy.Builder.fromString
-
-    modeString Stripe.LiveMode = "live"
-    modeString Stripe.TestMode = "test"
+    message =
+        Data.Text.Lazy.Builder.toLazyText $
+            foldMap Data.Text.Lazy.Builder.fromString
+                [ "Configuration error: No webhook secret for "
+                , case mode of
+                    Stripe.LiveMode -> "live"
+                    Stripe.TestMode -> "test"
+                , " mode."
+                ]
 
 chooseSecret
     :: Stripe.Mode
