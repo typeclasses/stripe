@@ -72,11 +72,11 @@ parseSig txt =
     parts = splitSig txt
   in
     do
-      sigTime <- Data.List.lookup (Data.Text.pack "t") parts
+      time <- Data.List.lookup (Data.Text.pack "t") parts
                     >>= (readNatural . Data.Text.unpack)
 
       let
-          sigV1 = Data.Maybe.mapMaybe
+          v1 = Data.Maybe.mapMaybe
               ( \(k, v) ->
                   if k == Data.Text.pack "v1"
                   then Text.Hex.decodeHex v
@@ -84,7 +84,7 @@ parseSig txt =
               )
               parts
 
-      pure Sig{ sigTime = sigTime, sigV1 = sigV1 }
+      pure Sig{ sigTime = time, sigV1 = v1 }
 
 splitSig :: Text -> [(Text, Text)]
 splitSig =
