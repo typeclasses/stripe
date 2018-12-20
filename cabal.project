@@ -1,0 +1,6 @@
+packages:
+    stripe-concepts/stripe-concepts.cabal
+  , stripe-scotty/stripe-scotty.cabal
+  , stripe-signature/stripe-signature.cabal
+  , stripe-wreq/stripe-wreq.cabal
+
