@@ -1,12 +1,10 @@
 # Changelog
 
-All notable changes to this package will be documented in this file.
-
-The format is based on
-[Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to the
-[Haskell Package Versioning Policy](https://pvp.haskell.org/).
-
 ## 1.0.0.0 - 2018-12-20
 
 - Initial release
+
+## 1.0.0.1 - 2019-05-18
+
+- Replace `hex-text` package dependency with slightly smaller `base16-bytestring` dependency
+ 
