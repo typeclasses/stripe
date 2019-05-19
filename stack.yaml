@@ -6,9 +6,6 @@ packages:
   - stripe-signature
   - stripe-wreq
 
-extra-deps:
-  - hex-text-0.1.0.0
-
 nix:
   packages:
     - zlib

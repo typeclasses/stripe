@@ -13,15 +13,16 @@ import qualified Data.String
 import           Numeric.Natural (Natural)
 import qualified Text.Read
 
+-- base16-bytestring
+import qualified Data.ByteString.Base16
+
 -- bytestring
 import Data.ByteString (ByteString)
+import qualified Data.ByteString
 
 -- cryptonite
 import Crypto.Hash     (SHA256)
 import Crypto.MAC.HMAC as HMAC
-
--- hex-text
-import qualified Text.Hex
 
 -- memory
 import qualified Data.ByteArray
@@ -32,6 +33,7 @@ import Stripe.Concepts (WebhookSecretKey (..))
 -- text
 import           Data.Text (Text)
 import qualified Data.Text
+import qualified Data.Text.Encoding
 
 isSigValid :: Sig -> WebhookSecretKey -> ByteString -> Bool
 isSigValid x secret body =
@@ -84,7 +86,7 @@ parseSig txt =
           v1 = Data.Maybe.mapMaybe
               ( \(k, v) ->
                   if k == Data.Text.pack "v1"
-                  then Text.Hex.decodeHex v
+                  then decodeHex v
                   else Nothing
               )
               parts
@@ -109,3 +111,15 @@ split2 pat src =
 
 readNatural :: String -> Maybe Natural
 readNatural = Text.Read.readMaybe
+
+{- | Decodes hexidecimal text as a byte string. The result is a 'Just' value iff
+the text contains an even number of characters and consists only of the digits
+@0@ through @9@ and letters @a@ through @f@. -}
+
+decodeHex :: Text -> Maybe ByteString
+decodeHex txt =
+    let
+        bs = Data.Text.Encoding.encodeUtf8 txt
+        (x, remainder) = Data.ByteString.Base16.decode bs
+    in
+        if Data.ByteString.null remainder then Just x else Nothing

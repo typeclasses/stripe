@@ -37,9 +37,9 @@ library
 
     build-depends:
         base >=4.10 && <5
+      , base16-bytestring
       , bytestring
       , cryptonite
-      , hex-text
       , memory
       , stripe-concepts
       , text
