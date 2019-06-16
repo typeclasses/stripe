@@ -19,6 +19,7 @@ module Stripe.Concepts
   -- * Identifiers
   , TokenId (..), CustomerId (..), ProductId (..)
   , PlanId (..), SubscriptionId (..), InvoiceId (..)
+  , CouponId (..)
 
   ) where
 
@@ -198,3 +199,12 @@ one-off, or generated periodically from a subscription." -
 <https://stripe.com/docs/api/invoices Stripe> -}
 
 newtype InvoiceId = InvoiceId Data.Text.Text deriving Eq
+
+{- | The ID of a Stripe coupon.
+
+"A coupon contains information about a percent-off or amount-off discount you
+might want to apply to a customer. Coupons may be applied to invoices or
+orders." -
+<https://stripe.com/docs/api/coupons Stripe> -}
+
+newtype CouponId = CouponId Data.Text.Text deriving Eq

@@ -10,3 +10,9 @@ and this project adheres to the
 ## 1.0.0.0 - 2018-12-20
 
 - Initial release
+
+## 1.0.1.0 - 2019-06-16
+
+New:
+
+- `CouponId` type
