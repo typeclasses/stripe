@@ -1,4 +1,4 @@
-{-# OPTIONS_GHC -Wall #-}
+{-# OPTIONS_GHC -Wall -fno-warn-missing-signatures #-}
 
 {- | Typical use of this module:
 
@@ -11,11 +11,11 @@ module Stripe.Wreq
   (
   -- * Request
   -- ** GET
-    get, Get (..)
+    get, get', Get (..)
   -- ** POST
-  , post, Post (..)
+  , post, post', Post (..)
   -- ** DELETE
-  , delete, Delete (..)
+  , delete, delete', Delete (..)
 
   -- * Response
   , WreqResponse, Response (..)
@@ -47,6 +47,7 @@ import qualified Control.Exception
 import           Control.Monad     ((>=>))
 import qualified Data.Bifunctor
 import qualified Data.Semigroup
+import           Data.String       (fromString)
 import           Prelude           hiding (userError)
 
 -- bytestring
@@ -54,10 +55,10 @@ import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
 
 -- lens
-import Control.Lens ((&), (.~), (?~), (^.))
+import Control.Lens ((&), (.~), (?~), (^.), (<>~))
 
 -- stripe-concepts
-import Stripe.Concepts (ApiSecretKey (..))
+import Stripe.Concepts (ApiSecretKey (..), RequestApiVersion (..), ApiVersion (..))
 
 -- text
 import           Data.Text (Text)
@@ -182,25 +183,37 @@ data Delete =
     }
 
 get :: Session -> ApiSecretKey -> Get -> IO WreqResponse
-get session key x = Network.Wreq.Session.getWith opts session url
+get session key x = get' session key DefaultApiVersion x
+
+get' :: Session -> ApiSecretKey -> RequestApiVersion -> Get -> IO WreqResponse
+get' session key v x = Network.Wreq.Session.getWith opts session url
   where
     url = makeUrl (getPath x)
     opts = wreqDefaults & Network.Wreq.auth ?~ auth key
                         & Network.Wreq.params .~ (getParams x)
+                        & Network.Wreq.headers <>~ (requestApiVersionHeaders v)
 
 post :: Session -> ApiSecretKey -> Post -> IO WreqResponse
-post session key x = Network.Wreq.Session.postWith opts session url params
+post session key x = post' session key DefaultApiVersion x
+
+post' :: Session -> ApiSecretKey -> RequestApiVersion -> Post -> IO WreqResponse
+post' session key v x = Network.Wreq.Session.postWith opts session url params
   where
     url = makeUrl (postPath x)
     params = postParams x
     opts = wreqDefaults & Network.Wreq.auth ?~ auth key
+                        & Network.Wreq.headers <>~ (requestApiVersionHeaders v)
 
 delete :: Session -> ApiSecretKey -> Delete -> IO WreqResponse
-delete session key x = Network.Wreq.Session.deleteWith opts session url
+delete session key x = delete' session key DefaultApiVersion x
+
+delete' :: Session -> ApiSecretKey -> RequestApiVersion -> Delete -> IO WreqResponse
+delete' session key v x = Network.Wreq.Session.deleteWith opts session url
   where
     url = makeUrl (deletePath x)
     opts = wreqDefaults & Network.Wreq.auth ?~ auth key
                         & Network.Wreq.params .~ (deleteParams x)
+                        & Network.Wreq.headers <>~ (requestApiVersionHeaders v)
 
 urlBase :: Text
 urlBase = Data.Text.pack "https://api.stripe.com/v1"
@@ -213,6 +226,18 @@ makeUrl =
 
 wreqDefaults :: Network.Wreq.Options
 wreqDefaults = Network.Wreq.defaults & noCheckResponse
+
+-- When using the default API version, no header is required.
+requestApiVersionHeaders DefaultApiVersion = []
+
+-- Overriding with a specific API version requires one header field.
+requestApiVersionHeaders (OverrideApiVersion v) = [apiVersionHeader v]
+
+-- The header field for specifying the API version.
+apiVersionHeader (ApiVersion v) = (name, value)
+  where
+    name = fromString "Stripe-Version"
+    value = fromString (Data.Text.unpack v)
 
 {- | Set a "response checker" that overrides Wreq's default one which causes
 exceptions to be thrown for non-2xx HTTP status codes -}

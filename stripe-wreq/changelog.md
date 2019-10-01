@@ -10,3 +10,9 @@ and this project adheres to the
 ## 1.0.0.0 - 2018-12-20
 
 - Initial release
+
+## 1.0.1.0 - 2019-09-30
+
+New:
+
+  - Functions `get'`, `post'`, `delete'` with a new `RequestApiVersion` parameter.

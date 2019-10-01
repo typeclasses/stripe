@@ -21,6 +21,9 @@ module Stripe.Concepts
   , PlanId (..), SubscriptionId (..), InvoiceId (..)
   , CouponId (..)
 
+  -- * API Versioning
+  , ApiVersion (..), RequestApiVersion (..)
+
   ) where
 
 -- bytestring
@@ -208,3 +211,29 @@ orders." -
 <https://stripe.com/docs/api/coupons Stripe> -}
 
 newtype CouponId = CouponId Data.Text.Text deriving Eq
+
+------------------------------------------------------------
+
+{- | When Stripe makes a backwards-incompatible change to the API, they release
+a new API version. The versions are named by the date of their release (e.g.
+"2019-09-09"). -}
+
+newtype ApiVersion = ApiVersion Data.Text.Text deriving Eq
+
+{- |  Your account API settings specify:
+
+  - Which API version is used by default for requests;
+  - Which API version is used for webhook events.
+
+However, you can override the API version for specific requests. "To set the API
+version on a specific request, send a @Stripe-Version@ header." -
+<https://stripe.com/docs/api/versioning Stripe> -}
+
+data RequestApiVersion =
+    DefaultApiVersion
+      -- ^ Use the default API version specified by your account settings.
+  | OverrideApiVersion ApiVersion
+      {- ^ Use a specific API version for this request. (Please note however
+           that any webhook events generated as a result of this request will
+           still use your account's default API version.) -}
+    deriving Eq

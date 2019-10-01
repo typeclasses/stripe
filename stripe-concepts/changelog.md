@@ -16,3 +16,9 @@ and this project adheres to the
 New:
 
 - `CouponId` type
+
+## 1.0.2.0 - 2019-09-30
+
+New:
+
+- `ApiVersion` and `RequestApiVersion` types
