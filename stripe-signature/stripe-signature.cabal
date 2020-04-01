@@ -36,7 +36,7 @@ library
         Stripe.Signature
 
     build-depends:
-        base >=4.10 && <5
+        base >=4.10 && <4.14
       , base16-bytestring
       , bytestring
       , cryptonite
@@ -52,7 +52,7 @@ test-suite test
     ghc-options: -threaded
 
     build-depends:
-        base >=4.10 && <5
+        base >=4.10 && <4.14
       , bytestring
       , stripe-signature
       , text
