@@ -16,3 +16,7 @@ and this project adheres to the
 New:
 
   - Functions `get'`, `post'`, `delete'` with a new `RequestApiVersion` parameter.
+
+## 1.0.1.2 - 2020-04-18
+
+Tightened dependency version bounds

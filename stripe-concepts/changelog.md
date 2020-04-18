@@ -22,3 +22,7 @@ New:
 New:
 
 - `ApiVersion` and `RequestApiVersion` types
+
+## 1.0.2.2 - 2020-04-18
+
+Tightened dependency version bounds
