@@ -1,5 +1,5 @@
 name: stripe-signature
-version: 1.0.0.2
+version: 1.0.0.4
 
 synopsis: Verification of Stripe webhook signatures
 category: Web
@@ -23,7 +23,7 @@ license-file: license.txt
 
 build-type: Simple
 cabal-version: >=1.10
-tested-with: GHC==8.2.2, GHC==8.4.4, GHC==8.6.3, GHC==8.8.1
+tested-with: GHC==8.2.2, GHC==8.4.4, GHC==8.6.3, GHC==8.8.1, GHC==8.10.1
 
 extra-source-files:
     changelog.md
@@ -36,7 +36,7 @@ library
         Stripe.Signature
 
     build-depends:
-        base >=4.10 && <4.14
+        base >=4.10 && <4.15
       , base16-bytestring >= 0.1 && <0.2
       , bytestring >=0.10 && <0.11
       , cryptonite >=0.25 && <0.27
@@ -52,7 +52,7 @@ test-suite test
     ghc-options: -threaded
 
     build-depends:
-        base >=4.10 && <4.14
+        base >=4.10 && <4.15
       , bytestring >=0.10 && <0.11
       , stripe-signature
       , text >=1.2 && <1.3
