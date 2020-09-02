@@ -15,3 +15,7 @@ Tightened dependency version bounds
 ## 1.0.0.4 - 2020-05-20
 
 Support GHC 8.10
+
+## 1.0.0.6 - 2020-09-02
+
+Support cryptonite 0.27

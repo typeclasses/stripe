@@ -1,5 +1,5 @@
 name: stripe-signature
-version: 1.0.0.4
+version: 1.0.0.6
 
 synopsis: Verification of Stripe webhook signatures
 category: Web
