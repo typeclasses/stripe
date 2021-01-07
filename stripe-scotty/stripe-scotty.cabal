@@ -34,11 +34,11 @@ library
         Stripe.Scotty
 
     build-depends:
-        aeson >=1.4 && <1.5
+        aeson >=1.4 && <1.6
       , base >=4.10 && <4.15
       , bytestring >=0.10 && <0.11
       , http-types >=0.12 && <0.13
-      , scotty >=0.11 && <0.12
+      , scotty >=0.11 && <0.13
       , stripe-concepts >=1.0 && <1.1
       , stripe-signature >=1.0 && <1.1
       , text >=1.2 && <1.3
