@@ -24,3 +24,7 @@ Tightened dependency version bounds
 ## 1.0.1.4 - 2020-05-20
 
 Support GHC 8.10
+
+## 1.0.1.6 - 2021-02-10
+
+Raise bound to allow `aeson-1.5`

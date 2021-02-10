@@ -1,5 +1,5 @@
 name: stripe-scotty
-version: 1.0.0.4
+version: 1.0.0.6
 
 synopsis: Listen for Stripe webhook events with Scotty
 category: Web
