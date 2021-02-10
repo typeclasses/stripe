@@ -3,9 +3,11 @@ on: [push, pull_request]
 name: CI for Stripe libraries
 
 jobs:
+
   build:
     name: Build and test all the packages
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
@@ -16,12 +18,37 @@ jobs:
           - '8.4.4'
           - '8.2.2'
 
+        aeson: ['-any']
+        scotty: ['-any']
+
+        experimental: [false]
+
+        include:
+          - ghc: '8.10.1'
+            aeson: '== 1.5.*'
+            scotty: '== 0.12.*'
+            experimental: true
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: Cache Haskell dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cabal/packages
+            ~/.cabal/store
+          key: ${{ runner.os }}-${{ matrix.ghc }}
+
       - uses: haskell/actions/setup@v1
         with:
           ghc-version: ${{ matrix.ghc }}
+
       - name: Build
-        run: cabal build all
+        run: >
+            cabal build all
+            --constraint='aeson ${{matrix.aeson}}'
+            --constraint='scotty ${{matrix.scotty}}'
+
       - name: Test
         run: cabal test all
