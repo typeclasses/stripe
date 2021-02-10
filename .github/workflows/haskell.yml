@@ -1,0 +1,27 @@
+on: [push]
+
+name: CI for Stripe libraries
+
+jobs:
+  build:
+    name: Build and test all the packages
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ghc:
+          - '8.10.1'
+          - '8.8.1'
+          - '8.6.3'
+          - '8.4.4'
+          - '8.2.2'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: haskell/actions/setup@v1
+        with:
+          ghc-version: ${{ matrix.ghc }}
+      - name: Build
+        run: cabal build all
+      - name: Test
+        run: cabal test all
