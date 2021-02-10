@@ -27,6 +27,7 @@ jobs:
           - ghc: '8.10.1'
             aeson: '== 1.5.*'
             scotty: '== 0.12.*'
+            experimental: false
 
     steps:
       - uses: actions/checkout@v2
