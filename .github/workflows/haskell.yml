@@ -19,6 +19,7 @@ jobs:
           - '8.2.2'
 
         aeson: ['-any']
+        cryptonite: ['-any']
         scotty: ['-any']
 
         experimental: [false]
@@ -26,6 +27,7 @@ jobs:
         include:
           - ghc: '8.10.1'
             aeson: '== 1.5.*'
+            cryptonite: '== 0.28.*'
             scotty: '== 0.12.*'
             experimental: false
 
@@ -49,6 +51,7 @@ jobs:
             cabal build all
             --constraint='aeson ${{matrix.aeson}}'
             --constraint='scotty ${{matrix.scotty}}'
+            --constraint='cryptonite ${{matrix.cryptonite}}'
 
       - name: Test
         run: cabal test all
