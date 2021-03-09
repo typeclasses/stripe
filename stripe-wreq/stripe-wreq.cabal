@@ -41,7 +41,7 @@ library
         aeson >=1.4 && <1.6
       , base >=4.10 && <4.15
       , bytestring >=0.10 && <0.11
-      , lens >=4.17 && <4.20
+      , lens >=4.17 && <5.1
       , stripe-concepts >=1.0 && <1.1
       , text >=1.2 && <1.3
       , unordered-containers >=0.2 && <0.3
