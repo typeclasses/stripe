@@ -35,7 +35,7 @@ library
         Stripe.Scotty
 
     build-depends:
-        aeson ^>=1.4 || <1.5
+        aeson ^>= 1.4 || ^>= 1.5
       , base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
       , bytestring ^>=0.10
       , http-types ^>=0.12
