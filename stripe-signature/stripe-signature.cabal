@@ -39,7 +39,7 @@ library
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
       , base16-bytestring ^>= 0.1
-      , bytestring ^>=0.10 || ^>=0.11
+      , bytestring ^>=0.10
       , cryptonite ^>=0.25 || ^>=0.26 || ^>=0.27 || ^>=0.28
       , memory ^>=0.14 || ^>=0.15
       , stripe-concepts ^>=1.0
@@ -54,6 +54,6 @@ test-suite test
 
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-      , bytestring ^>=0.10 || ^>=0.11
+      , bytestring ^>=0.10
       , stripe-signature
       , text ^>=1.2
