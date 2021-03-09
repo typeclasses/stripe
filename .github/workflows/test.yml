@@ -1,0 +1,41 @@
+on: [push, pull_request]
+
+name: CI for Stripe libraries
+
+jobs:
+
+  build:
+    name: Test all the packages
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ghc:
+          - '8.10.1'
+          - '8.8.1'
+          - '8.6.3'
+          - '8.4.4'
+          - '8.2.2'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Haskell dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cabal/packages
+            ~/.cabal/store
+          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('**/*.cabal', '.github/workflows/test.hs') }}
+          restore-keys: |
+              ${{ runner.os }}-${{ matrix.ghc }}-
+              ${{ runner.os }}-
+
+      - uses: haskell/actions/setup@v1
+        with:
+          ghc-version: ${{ matrix.ghc }}
+
+      - name: Test
+        run: runhaskell --ghc-arg='-package process' ./.github/workflows/test.hs
+        env:
+          ghc: ${{ matrix.ghc }}
