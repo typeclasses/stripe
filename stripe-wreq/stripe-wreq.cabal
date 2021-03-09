@@ -41,7 +41,7 @@ library
     build-depends:
         aeson ^>= 1.4 || ^>= 1.5
       , base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-      , bytestring ^>=0.10
+      , bytestring ^>=0.10 || ^>= 0.11
       , lens >=4.17 && <5.1
       , stripe-concepts ^>=1.0
       , text ^>=1.2

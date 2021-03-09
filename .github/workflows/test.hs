@@ -6,6 +6,7 @@ main =
     case ghc of
       "8.2.2" -> callProcess "cabal" ["test", "all"
                   , "--constraint=aeson == 1.4.*"
+                  , "--constraint=bytestring == 0.10.*"
                   , "--constraint=lens == 4.17.*"
                   , "--constraint=scotty == 0.11.*"
                   ]
@@ -14,6 +15,7 @@ main =
       "8.8.1" -> callProcess "cabal" ["test", "all"]
       "8.10.1" -> callProcess "cabal" ["test", "all"
                   , "--constraint=aeson == 1.5.*"
+                  , "--constraint=bytestring == 0.11.*"
                   , "--constraint=lens == 5.0.*"
                   , "--constraint=scotty == 0.12.*"
                   ]
