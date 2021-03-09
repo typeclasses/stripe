@@ -19,3 +19,7 @@ Support GHC 8.10
 ## 1.0.0.6 - 2020-09-02
 
 Support cryptonite 0.27
+
+## 1.0.0.8 - 2021-03-08
+
+Support cryptonite 0.28

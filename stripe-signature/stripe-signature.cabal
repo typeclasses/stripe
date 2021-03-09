@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: stripe-signature
-version: 1.0.0.6
+version: 1.0.0.8
 
 synopsis: Verification of Stripe webhook signatures
 category: Web
