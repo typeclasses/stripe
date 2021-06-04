@@ -24,7 +24,8 @@ license: MIT
 license-file: license.txt
 
 build-type: Simple
-tested-with: GHC==8.2.2, GHC==8.4.4, GHC==8.6.3, GHC==8.8.1, GHC==8.10.1
+tested-with: GHC==8.2.2, GHC==8.4.4, GHC==8.6.3, GHC==8.8.1, GHC==8.10.1,
+             GHC==9.0.1
 
 extra-source-files:
     changelog.md
@@ -38,10 +39,12 @@ library
 
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-      , base16-bytestring ^>= 0.1
-      , bytestring ^>= 0.10
+          || ^>= 4.15
+      , base16-bytestring ^>= 1.0
+      , bytestring ^>= 0.10 || ^>= 0.11
       , cryptonite ^>= 0.25 || ^>= 0.26 || ^>= 0.27 || ^>= 0.28
-      , memory ^>= 0.14 || ^>= 0.15
+                || ^>= 0.29
+      , memory ^>= 0.14 || ^>= 0.15 || ^>= 0.16
       , stripe-concepts ^>= 1.0
       , text ^>= 1.2
 
@@ -54,6 +57,7 @@ test-suite test
 
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-      , bytestring ^>= 0.10
+          || ^>= 4.15
+      , bytestring ^>= 0.10 || ^>= 0.11
       , stripe-signature
       , text ^>= 1.2

@@ -14,11 +14,10 @@ import           Numeric.Natural (Natural)
 import qualified Text.Read
 
 -- base16-bytestring
-import qualified Data.ByteString.Base16
+import qualified Data.ByteString.Base16 as Base16
 
 -- bytestring
 import Data.ByteString (ByteString)
-import qualified Data.ByteString
 
 -- cryptonite
 import Crypto.Hash     (SHA256)
@@ -32,8 +31,8 @@ import Stripe.Concepts (WebhookSecretKey (..))
 
 -- text
 import           Data.Text (Text)
-import qualified Data.Text
-import qualified Data.Text.Encoding
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
 
 isSigValid :: Sig -> WebhookSecretKey -> ByteString -> Bool
 isSigValid x secret body =
@@ -79,13 +78,13 @@ parseSig txt =
     parts = splitSig txt
   in
     do
-      time <- Data.List.lookup (Data.Text.pack "t") parts
-                    >>= (readNatural . Data.Text.unpack)
+      time <- Data.List.lookup (Text.pack "t") parts
+                    >>= (readNatural . Text.unpack)
 
       let
           v1 = Data.Maybe.mapMaybe
               ( \(k, v) ->
-                  if k == Data.Text.pack "v1"
+                  if k == Text.pack "v1"
                   then decodeHex v
                   else Nothing
               )
@@ -96,16 +95,16 @@ parseSig txt =
 splitSig :: Text -> [(Text, Text)]
 splitSig =
     Data.Maybe.catMaybes
-    . fmap (split2 (Data.Text.pack "="))
-    . Data.Text.splitOn (Data.Text.pack ",")
+    . fmap (split2 (Text.pack "="))
+    . Text.splitOn (Text.pack ",")
 
 split2 :: Text -> Text -> Maybe (Text, Text)
 split2 pat src =
     let
-        (x, y) = Data.Text.breakOn pat src
-        y' = Data.Text.drop (Data.Text.length pat) y
+        (x, y) = Text.breakOn pat src
+        y' = Text.drop (Text.length pat) y
     in
-        if Data.Text.null y then Nothing else Just (x, y')
+        if Text.null y then Nothing else Just (x, y')
 
 {- | Parse a number consisting of one or more digits 0 through 9. -}
 
@@ -117,9 +116,4 @@ the text contains an even number of characters and consists only of the digits
 @0@ through @9@ and letters @a@ through @f@. -}
 
 decodeHex :: Text -> Maybe ByteString
-decodeHex txt =
-    let
-        bs = Data.Text.Encoding.encodeUtf8 txt
-        (x, remainder) = Data.ByteString.Base16.decode bs
-    in
-        if Data.ByteString.null remainder then Just x else Nothing
+decodeHex = either (const Nothing) Just . Base16.decode . Text.encodeUtf8

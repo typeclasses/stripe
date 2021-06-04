@@ -23,3 +23,9 @@ Support cryptonite 0.27
 ## 1.0.0.8 - 2021-03-08
 
 Support cryptonite 0.28
+
+## ?
+
+Support GHC 9.0, `cryptonite` 0.29, `bytestring` 0.11, `memory` 0.16
+
+Switch `base16-bytestring` version from 0.1 to 1.0

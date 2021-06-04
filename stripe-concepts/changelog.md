@@ -27,3 +27,7 @@ Support GHC 8.10
 ## 1.0.2.6 - 2021-03-08
 
 No change, just reformatting cabal files
+
+## ?
+
+Support GHC 9.0, `bytestring` 0.11

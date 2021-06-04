@@ -19,3 +19,7 @@ Raise bounds to allow `aeson-1.5` and `scotty-0.12`
 ## 1.0.0.8 - 2021-03-08
 
 No change, just fiddling with the cabal file
+
+## ?
+
+Support GHC 9.0, `bytestring` 0.11
