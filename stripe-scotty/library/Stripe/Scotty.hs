@@ -19,6 +19,7 @@ import qualified Data.Aeson
 
 -- base
 import Control.Monad (when, (>=>))
+import Control.Monad.IO.Class (MonadIO)
 
 -- bytestring
 import qualified Data.ByteString
@@ -28,7 +29,7 @@ import qualified Data.ByteString.Lazy
 import qualified Network.HTTP.Types.Status
 
 -- scotty
-import qualified Web.Scotty
+import qualified Web.Scotty.Trans as Scotty
 
 -- stripe-concepts
 import qualified Stripe.Concepts as Stripe
@@ -52,8 +53,9 @@ evaluate the request body to do the signature check, so we might as well return
 this information to you for subsequent use. -}
 
 requireSig
-    :: Stripe.WebhookSecretKey
-    -> Web.Scotty.ActionM Data.ByteString.ByteString
+    :: (MonadIO m, Scotty.ScottyError e) =>
+    Stripe.WebhookSecretKey
+    -> Scotty.ActionT e m Data.ByteString.ByteString
 
 requireSig secret =
   do
@@ -73,8 +75,9 @@ verification, so we might as well return this information to you for subsequent
 use. -}
 
 requireSig_eitherMode
-    :: Stripe.BothModes (Maybe Stripe.WebhookSecretKey)
-    -> Web.Scotty.ActionM (Stripe.Mode, Data.Aeson.Value)
+    :: (MonadIO m, Scotty.ScottyError e) =>
+    Stripe.BothModes (Maybe Stripe.WebhookSecretKey)
+    -> Scotty.ActionT e m (Stripe.Mode, Data.Aeson.Value)
 
 requireSig_eitherMode secrets =
   do
@@ -88,22 +91,24 @@ requireSig_eitherMode secrets =
 
     return (mode, value)
 
-getBody :: Web.Scotty.ActionM Data.ByteString.ByteString
-getBody = Data.ByteString.Lazy.toStrict <$> Web.Scotty.body
+getBody :: (MonadIO m, Scotty.ScottyError e) =>
+    Scotty.ActionT e m Data.ByteString.ByteString
+getBody = Data.ByteString.Lazy.toStrict <$> Scotty.body
 
-invalidSigAction :: Web.Scotty.ActionM a
+invalidSigAction :: (Monad m, Scotty.ScottyError e) => Scotty.ActionT e m a
 invalidSigAction =
   do
-    Web.Scotty.status Network.HTTP.Types.Status.forbidden403
-    Web.Scotty.text (Data.Text.Lazy.pack "Invalid Stripe signature")
-    Web.Scotty.finish
+    Scotty.status Network.HTTP.Types.Status.forbidden403
+    Scotty.text (Data.Text.Lazy.pack "Invalid Stripe signature")
+    Scotty.finish
 
-missingKeyAction :: Stripe.Mode -> Web.Scotty.ActionM a
+missingKeyAction :: (Monad m, Scotty.ScottyError e) =>
+    Stripe.Mode -> Scotty.ActionT e m a
 missingKeyAction mode =
   do
-    Web.Scotty.status Network.HTTP.Types.Status.internalServerError500
-    Web.Scotty.text message
-    Web.Scotty.finish
+    Scotty.status Network.HTTP.Types.Status.internalServerError500
+    Scotty.text message
+    Scotty.finish
   where
     message =
         Data.Text.Lazy.Builder.toLazyText $
@@ -116,39 +121,40 @@ missingKeyAction mode =
                 ]
 
 chooseSecret
-    :: Stripe.Mode
+    :: (Monad m, Scotty.ScottyError e) =>
+    Stripe.Mode
     -> Stripe.BothModes (Maybe Stripe.WebhookSecretKey)
-    -> Web.Scotty.ActionM Stripe.WebhookSecretKey
-
+    -> Scotty.ActionT e m Stripe.WebhookSecretKey
 chooseSecret mode secrets =
     case Stripe.applyMode mode secrets of
         Just x -> return x
         Nothing -> missingKeyAction mode
 
 parseBody
-    :: Data.ByteString.ByteString
-    -> Web.Scotty.ActionM Data.Aeson.Value
-
+    :: (Monad m, Scotty.ScottyError e) =>
+    Data.ByteString.ByteString
+    -> Scotty.ActionT e m Data.Aeson.Value
 parseBody bs =
     case Data.Aeson.eitherDecode (Data.ByteString.Lazy.fromStrict bs) of
         Left x ->
           do
-            Web.Scotty.status Network.HTTP.Types.Status.badRequest400
-            Web.Scotty.text (Data.Text.Lazy.pack x)
-            Web.Scotty.finish
+            Scotty.status Network.HTTP.Types.Status.badRequest400
+            Scotty.text (Data.Text.Lazy.pack x)
+            Scotty.finish
         Right x ->
             return x
 
-getMode :: Data.Aeson.Value -> Web.Scotty.ActionM Stripe.Mode
+getMode :: (Monad m, Scotty.ScottyError e) =>
+    Data.Aeson.Value -> Scotty.ActionT e m Stripe.Mode
 getMode val =
     case (aesonAttr "livemode" >=> aesonBool) val of
 
       Nothing ->
         do
-          Web.Scotty.status Network.HTTP.Types.Status.badRequest400
-          Web.Scotty.text (Data.Text.Lazy.pack
+          Scotty.status Network.HTTP.Types.Status.badRequest400
+          Scotty.text (Data.Text.Lazy.pack
               "Webhook attribute \"livemode\" is missing.")
-          Web.Scotty.finish
+          Scotty.finish
 
       Just livemode ->
           return (Stripe.isLiveMode' livemode)
@@ -156,10 +162,10 @@ getMode val =
 {- | Determines whether the request contains a valid Stripe signature header. -}
 
 hasValidSig
-    :: Stripe.WebhookSecretKey
+    :: (Monad m, Scotty.ScottyError e) =>
+    Stripe.WebhookSecretKey
     -> Data.ByteString.ByteString
-    -> Web.Scotty.ActionM Bool
-
+    -> Scotty.ActionT e m Bool
 hasValidSig secret body =
   do
     sigMaybe <- getSig
@@ -168,13 +174,15 @@ hasValidSig secret body =
             Nothing -> False
             Just sig -> Stripe.isSigValid sig secret body
 
-getSigText :: Web.Scotty.ActionM (Maybe Data.Text.Text)
+getSigText :: (Monad m, Scotty.ScottyError e) =>
+    Scotty.ActionT e m (Maybe Data.Text.Text)
 getSigText =
   do
-    x <- Web.Scotty.header (Data.Text.Lazy.pack "Stripe-Signature")
+    x <- Scotty.header (Data.Text.Lazy.pack "Stripe-Signature")
     return (Data.Text.Lazy.toStrict <$> x)
 
-getSig :: Web.Scotty.ActionM (Maybe Stripe.Sig)
+getSig :: (Monad m, Scotty.ScottyError e) =>
+    Scotty.ActionT e m (Maybe Stripe.Sig)
 getSig =
   do
     x <- getSigText
