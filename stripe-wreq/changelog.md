@@ -26,6 +26,6 @@ Raise bound to allow `aeson-1.5`
 
 Raise bound to allow `lens-5.0`
 
-## ?
+## 1.0.1.10 - 2021-06-05
 
 Support GHC 9.0, `bytestring` 0.11
