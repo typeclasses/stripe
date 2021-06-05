@@ -23,3 +23,7 @@ No change, just fiddling with the cabal file
 ## 1.0.0.10 - 2021-06-05
 
 Support GHC 9.0, `bytestring` 0.11
+
+## 1.1 - 2021-06-05
+
+Generalize `ScottyM` to `ScottyT`
