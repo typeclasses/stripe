@@ -31,3 +31,7 @@ No change, just reformatting cabal files
 ## 1.0.2.8 - 2021-06-05
 
 Support GHC 9.0, `bytestring` 0.11
+
+## 1.0.3 - 2021-07-01
+
+Add standard instances to many types

@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
+{-# language DeriveFunctor, DerivingStrategies, DeriveDataTypeable, DeriveGeneric #-}
 
 module Stripe.Concepts
   (
@@ -26,6 +27,10 @@ module Stripe.Concepts
 
   ) where
 
+-- base
+import Data.Data (Data)
+import GHC.Generics (Generic)
+
 -- bytestring
 import qualified Data.ByteString
 
@@ -48,6 +53,7 @@ This library provides functions to convert back and forth between 'Mode' and
 - 'isTestMode' (and its inverse, 'isTestMode'') -}
 
 data Mode = LiveMode | TestMode
+  deriving stock (Eq, Ord, Show, Enum, Bounded, Data, Generic)
 
 -- | LiveMode → True; TestMode → False
 isLiveMode :: Mode -> Bool
@@ -76,10 +82,7 @@ For example, you may wish to use a value of type @'BothModes'
 and test mode. -}
 
 data BothModes a = BothModes { liveMode :: a, testMode :: a }
-
-instance Functor BothModes
-  where
-    fmap f (BothModes a b) = BothModes (f a) (f b)
+  deriving stock (Eq, Show, Data, Generic, Functor)
 
 applyMode :: Mode -> BothModes a -> a
 applyMode LiveMode = liveMode
@@ -111,6 +114,7 @@ likely have the data as a 'Data.Text.Text' value. You can use
 'textToApiSecretKey' to do this conversion. -}
 
 newtype ApiSecretKey = ApiSecretKey Data.ByteString.ByteString
+  deriving stock (Eq, Ord)
 
 {- | Publishable API keys are used in client-side code.
 
@@ -121,6 +125,7 @@ only have the power to create tokens." - <https://stripe.com/docs/keys Stripe>
 -}
 
 newtype PublishableApiKey = PublishableApiKey Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | Webhook secrets are used to verify the authenticity of webhook events that
 you receive from Stripe.
@@ -137,6 +142,7 @@ likely have the data as a 'Data.Text.Text' value. You can use
 'textToWebhookSecretKey' to do this conversion. -}
 
 newtype WebhookSecretKey = WebhookSecretKey Data.ByteString.ByteString
+  deriving stock (Eq, Ord)
 
 {- | Convert a 'Data.Text.Text' representation of a Stripe API key (that looks
 something like @"sk_test_BQokikJOvBiI2HlWgH4olfQ2"@) to an 'ApiSecretKey'. -}
@@ -160,7 +166,8 @@ submitted by a user to Stripe.
 integration to operate in a PCI-compliant way." -
 <https://stripe.com/docs/api/tokens Stripe> -}
 
-newtype TokenId = TokenId Data.Text.Text deriving Eq
+newtype TokenId = TokenId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | A customer identifier assigned by Stripe.
 
@@ -168,7 +175,8 @@ newtype TokenId = TokenId Data.Text.Text deriving Eq
 charges, that are associated with the same customer." -
 <https://stripe.com/docs/api/customers Stripe> -}
 
-newtype CustomerId = CustomerId Data.Text.Text deriving Eq
+newtype CustomerId = CustomerId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | The ID of a Stripe product.
 
@@ -176,7 +184,8 @@ newtype CustomerId = CustomerId Data.Text.Text deriving Eq
 Subscription. An associated Plan determines the product pricing." -
 <https://stripe.com/docs/api/service_products Stripe> -}
 
-newtype ProductId = ProductId Data.Text.Text deriving Eq
+newtype ProductId = ProductId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | The ID of a Stripe subscription plan.
 
@@ -185,7 +194,8 @@ example, you might have a $5/month plan that provides limited access to your
 products, and a $15/month plan that allows full access." -
 <https://stripe.com/docs/api/plans Stripe> -}
 
-newtype PlanId = PlanId Data.Text.Text deriving Eq
+newtype PlanId = PlanId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | Identifier for a customer's subscription to a product.
 
@@ -193,7 +203,8 @@ newtype PlanId = PlanId Data.Text.Text deriving Eq
 subscription ties a customer to a particular plan you've created." -
 <https://stripe.com/docs/api/subscriptions Stripe> -}
 
-newtype SubscriptionId = SubscriptionId Data.Text.Text deriving Eq
+newtype SubscriptionId = SubscriptionId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | The ID of a Stripe invoice.
 
@@ -201,7 +212,8 @@ newtype SubscriptionId = SubscriptionId Data.Text.Text deriving Eq
 one-off, or generated periodically from a subscription." -
 <https://stripe.com/docs/api/invoices Stripe> -}
 
-newtype InvoiceId = InvoiceId Data.Text.Text deriving Eq
+newtype InvoiceId = InvoiceId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- | The ID of a Stripe coupon.
 
@@ -210,7 +222,8 @@ might want to apply to a customer. Coupons may be applied to invoices or
 orders." -
 <https://stripe.com/docs/api/coupons Stripe> -}
 
-newtype CouponId = CouponId Data.Text.Text deriving Eq
+newtype CouponId = CouponId Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 ------------------------------------------------------------
 
@@ -218,7 +231,8 @@ newtype CouponId = CouponId Data.Text.Text deriving Eq
 a new API version. The versions are named by the date of their release (e.g.
 "2019-09-09"). -}
 
-newtype ApiVersion = ApiVersion Data.Text.Text deriving Eq
+newtype ApiVersion = ApiVersion Data.Text.Text
+  deriving stock (Eq, Ord, Show, Data, Generic)
 
 {- |  Your account API settings specify:
 
@@ -236,4 +250,4 @@ data RequestApiVersion =
       {- ^ Use a specific API version for this request. (Please note however
            that any webhook events generated as a result of this request will
            still use your account's default API version.) -}
-    deriving Eq
+    deriving stock (Eq, Ord, Show, Data, Generic)
