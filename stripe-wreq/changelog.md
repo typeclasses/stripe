@@ -29,3 +29,9 @@ Raise bound to allow `lens-5.0`
 ## 1.0.1.10 - 2021-06-05
 
 Support GHC 9.0, `bytestring` 0.11
+
+## 1.0.1.12 - 2021-11-16
+
+Support `aeson` 2.0, drop support for previous versions
+
+Support `lens` 5.1

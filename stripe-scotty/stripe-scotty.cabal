@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: stripe-scotty
-version: 1.1
+version: 1.1.0.1
 
 synopsis: Listen for Stripe webhook events with Scotty
 category: Web
@@ -22,8 +22,6 @@ license: MIT
 license-file: license.txt
 
 build-type: Simple
-tested-with: GHC==8.2.2, GHC==8.4.4, GHC==8.6.3, GHC==8.8.1, GHC==8.10.1,
-             GHC==9.0.1
 
 extra-source-files:
     changelog.md
@@ -36,13 +34,12 @@ library
         Stripe.Scotty
 
     build-depends:
-        aeson ^>= 1.4 || ^>= 1.5
+        aeson ^>= 2.0
       , base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
           || ^>= 4.15
       , bytestring ^>= 0.10 || ^>= 0.11
       , http-types ^>= 0.12
-      , scotty ^>= 0.11 || ^>= 0.12
+      , scotty ^>= 0.12
       , stripe-concepts ^>= 1.0
       , stripe-signature ^>= 1.0
       , text ^>= 1.2
-      , unordered-containers ^>= 0.2

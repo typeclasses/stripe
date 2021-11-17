@@ -41,6 +41,8 @@ module Stripe.Wreq
 
 -- aeson
 import qualified Data.Aeson
+import qualified Data.Aeson.Key
+import qualified Data.Aeson.KeyMap
 
 -- base
 import qualified Control.Exception
@@ -63,9 +65,6 @@ import Stripe.Concepts (ApiSecretKey (..), RequestApiVersion (..), ApiVersion (.
 -- text
 import           Data.Text (Text)
 import qualified Data.Text
-
--- unordered-containers
-import qualified Data.HashMap.Strict
 
 -- wreq
 import           Network.Wreq         (FormParam (..))
@@ -376,7 +375,7 @@ responseValueError val
 -- Internal Aeson decoding functions
 
 aesonAttr :: String -> Data.Aeson.Value -> Maybe Data.Aeson.Value
-aesonAttr x = aesonObject >=> Data.HashMap.Strict.lookup (Data.Text.pack x)
+aesonAttr x = aesonObject >=> Data.Aeson.KeyMap.lookup (Data.Aeson.Key.fromString x)
 
 aesonObject :: Data.Aeson.Value -> Maybe Data.Aeson.Object
 aesonObject (Data.Aeson.Object x) = Just x

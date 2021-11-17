@@ -16,6 +16,8 @@ module Stripe.Scotty
 
 -- aeson
 import qualified Data.Aeson
+import qualified Data.Aeson.Key
+import qualified Data.Aeson.KeyMap
 
 -- base
 import Control.Monad (when, (>=>))
@@ -41,9 +43,6 @@ import qualified Stripe.Signature as Stripe
 import qualified Data.Text
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Builder
-
--- unordered-containers
-import qualified Data.HashMap.Strict
 
 {- | Terminates request processing if the request does not contain a valid
 Stripe signature header.
@@ -193,7 +192,7 @@ getSig =
 -- Internal Aeson decoding functions
 
 aesonAttr :: String -> Data.Aeson.Value -> Maybe Data.Aeson.Value
-aesonAttr x = aesonObject >=> Data.HashMap.Strict.lookup (Data.Text.pack x)
+aesonAttr x = aesonObject >=> Data.Aeson.KeyMap.lookup (Data.Aeson.Key.fromString x)
 
 aesonObject :: Data.Aeson.Value -> Maybe Data.Aeson.Object
 aesonObject (Data.Aeson.Object x) = Just x

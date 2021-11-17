@@ -27,3 +27,9 @@ Support GHC 9.0, `bytestring` 0.11
 ## 1.1 - 2021-06-05
 
 Generalize `ScottyM` to `ScottyT`
+
+## 1.1.0.1 - 2021-11-16
+
+Support `aeson` 2.0, drop support for previous versions
+
+Drop support for `scotty` 0.11. Now 0.12 is required.

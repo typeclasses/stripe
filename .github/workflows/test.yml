@@ -3,20 +3,22 @@ on: [push, pull_request]
 name: CI for Stripe libraries
 
 jobs:
-
   build:
-    name: Test all the packages
-    runs-on: ubuntu-latest
+    name: Test
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         ghc:
-          - '9.0.1'
-          - '8.10.1'
-          - '8.8.1'
-          - '8.6.3'
-          - '8.4.4'
-          - '8.2.2'
+          - '8.2'
+          - '8.4'
+          - '8.6'
+          - '8.8'
+          - '8.10'
+          - '9.0'
+        os:
+          - ubuntu-latest
+          - macos-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -27,10 +29,7 @@ jobs:
           path: |
             ~/.cabal/packages
             ~/.cabal/store
-          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('**/*.cabal', '.github/workflows/test.hs') }}
-          restore-keys: |
-              ${{ runner.os }}-${{ matrix.ghc }}-
-              ${{ runner.os }}-
+          key: ${{ runner.os }}-${{ matrix.ghc }}
 
       - uses: haskell/actions/setup@v1
         with:
