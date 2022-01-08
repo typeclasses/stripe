@@ -35,3 +35,7 @@ Switch `base16-bytestring` version from 0.1 to 1.0
 Drop `cryptonite` and `memory` dependencies; HMAC is now done using the `cryptohash-sha256` package instead
 
 Add some tests for the `isSigValid` function
+
+## 1.0.0.14 - 2022-01-09
+
+Support GHC 9.2

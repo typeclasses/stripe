@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: stripe-signature
-version: 1.0.0.12
+version: 1.0.0.14
 
 synopsis: Verification of Stripe webhook signatures
 category: Web
@@ -38,7 +38,7 @@ library
 
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-          || ^>= 4.15
+          || ^>= 4.15 || ^>= 4.16
       , base16-bytestring ^>= 1.0
       , bytestring ^>= 0.10 || ^>= 0.11
       , cryptohash-sha256 ^>= 0.11.101
@@ -54,7 +54,7 @@ test-suite test
 
     build-depends:
         base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-          || ^>= 4.15
+          || ^>= 4.15 || ^>= 4.16
       , base16-bytestring ^>= 1.0
       , bytestring ^>= 0.10 || ^>= 0.11
       , stripe-concepts ^>= 1.0
