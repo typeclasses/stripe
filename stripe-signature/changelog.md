@@ -29,3 +29,9 @@ Support cryptonite 0.28
 Support GHC 9.0, `cryptonite` 0.29, `bytestring` 0.11, `memory` 0.16
 
 Switch `base16-bytestring` version from 0.1 to 1.0
+
+## 1.0.0.12 - 2022-01-08
+
+Drop `cryptonite` and `memory` dependencies; HMAC is now done using the `cryptohash-sha256` package instead
+
+Add some tests for the `isSigValid` function
