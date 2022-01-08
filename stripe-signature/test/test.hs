@@ -25,11 +25,11 @@ data Failure = Failure String
 main :: IO ()
 main =
     unless (null failures) $ do
-        for_ failures $ \(Failure x) -> putStrLn ("🔥 " <> x)
+        for_ failures $ \(Failure x) -> putStrLn ("🔥 " ++ x)
         exitFailure
 
 failures :: [Failure]
-failures = parseFailures <> validationFailures
+failures = parseFailures ++ validationFailures
 
 parseFailures :: [Failure]
 parseFailures =
@@ -39,7 +39,7 @@ parseFailures =
             case sigTime sig == test_time of
                 True -> []
                 False -> [Failure $ "sigTime: " ++ show (sigTime sig)]
-            <>
+            ++
             case (Data.ByteString.unpack <$> sigV1 sig) == [test_v1Bytes] of
                 True -> []
                 False -> [Failure $ "sigV1: " ++ show (Data.ByteString.unpack <$> sigV1 sig)]
@@ -67,11 +67,11 @@ validationFailures =
             case isSigValid Sig{ sigTime = 123, sigV1 = [d] } (WebhookSecretKey (Data.ByteString.Char8.pack "secret")) (Data.ByteString.Char8.pack "hello") of
                 True -> []
                 False -> [Failure "isSigValid rejects a valid signature"]
-            <>
+            ++
             case isSigValid Sig{ sigTime = 123, sigV1 = [d] } (WebhookSecretKey (Data.ByteString.Char8.pack "secret")) (Data.ByteString.Char8.pack "hello!") of
                 False -> []
                 True -> [Failure "isSigValid accepts an invalid signature"]
-            <>
+            ++
             case isSigValid Sig{ sigTime = 123, sigV1 = [Data.ByteString.Char8.pack "whatever", d] } (WebhookSecretKey (Data.ByteString.Char8.pack "secret")) (Data.ByteString.Char8.pack "hello") of
                 True -> []
                 False -> [Failure "isSigValid should accept if *any* of the sigs are valid"]

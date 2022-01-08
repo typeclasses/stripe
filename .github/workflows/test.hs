@@ -39,19 +39,14 @@ constraints ghc = catMaybes
     , "containers" .= case ghc of
           GHC_8_2 -> Just "0.6.0.1"
           _        -> Nothing
-    , "cryptonite" .= case ghc of
-          GHC_8_2  -> Just "0.25.*"
-          GHC_8_10 -> Just "0.28.*"
-          GHC_9_0  -> Just "0.29.*"
+    , "cryptohash-sha256" .= case ghc of
+          GHC_8_2  -> Just "0.11.101.0"
+          GHC_8_10 -> Just "0.11.102.0"
+          GHC_9_0  -> Just "0.11.102.1"
           _        -> Nothing
     , "lens" .= case ghc of
           GHC_8_2  -> Just "4.17.*"
           GHC_8_8  -> Just "5.0.*"
           GHC_9_0  -> Just "5.1.*"
-          _        -> Nothing
-    , "memory" .= case ghc of
-          GHC_8_2  -> Just "0.14.*"
-          GHC_8_10 -> Just "0.15.*"
-          GHC_9_0  -> Just "0.16.*"
           _        -> Nothing
     ]

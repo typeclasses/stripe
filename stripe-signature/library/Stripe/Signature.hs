@@ -17,12 +17,8 @@ import qualified Data.ByteString.Base16 as Base16
 -- bytestring
 import Data.ByteString (ByteString)
 
--- cryptonite
-import Crypto.Hash     (SHA256)
-import Crypto.MAC.HMAC as HMAC
-
--- memory
-import qualified Data.ByteArray
+-- cryptohash-sha256
+import qualified Crypto.Hash.SHA256
 
 -- stripe-concepts
 import Stripe.Concepts (WebhookSecretKey (..))
@@ -34,13 +30,13 @@ import qualified Data.Text.Encoding as Text
 
 isSigValid :: Sig -> WebhookSecretKey -> ByteString -> Bool
 isSigValid x secret body =
-    Data.List.any (Data.ByteArray.eq correctDigest) (sigV1 x)
+    Data.List.any ((==) correctDigest) (sigV1 x)
   where
     correctDigest = digest secret (sigTime x) body
 
-digest :: WebhookSecretKey -> Natural -> ByteString -> HMAC SHA256
+digest :: WebhookSecretKey -> Natural -> ByteString -> ByteString
 digest (WebhookSecretKey secret) time body =
-    HMAC.hmac secret (signedPayload time body)
+    Crypto.Hash.SHA256.hmac secret (signedPayload time body)
 
 signedPayload :: Natural -> ByteString -> ByteString
 signedPayload time body =
