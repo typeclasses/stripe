@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wall #-}
-
 {- | https://stripe.com/docs/webhooks/signatures#verify-manually -}
 
 module Stripe.Signature
