@@ -36,7 +36,7 @@ Support `aeson` 2.0, drop support for previous versions
 
 Support `lens` 5.1
 
-## Unreleased
+## 1.0.1.14 - 2022-03-15
 
 Support `base` 4.16 (GHC 9.2)
 
