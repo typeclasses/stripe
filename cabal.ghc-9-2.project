@@ -1,3 +1,0 @@
-packages:
-    stripe-concepts/stripe-concepts.cabal
-  , stripe-signature/stripe-signature.cabal

@@ -1,0 +1,4 @@
+packages: stripe-concepts, stripe-signature
+
+constraints:
+    base == 4.16.*
