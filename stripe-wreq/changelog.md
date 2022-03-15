@@ -38,6 +38,8 @@ Support `lens` 5.1
 
 ## Unreleased
 
+Support `base` 4.16 (GHC 9.2)
+
 Raise `base` lower bound to 4.14 (GHC 8.10)
 
 Raise `lens` lower bound to 5.0

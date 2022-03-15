@@ -1,4 +1,4 @@
-packages: stripe-concepts, stripe-signature
+packages: stripe-concepts, stripe-scotty, stripe-signature, stripe-wreq
 
 constraints:
     base == 4.16.*

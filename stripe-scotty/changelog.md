@@ -36,4 +36,6 @@ Drop support for `scotty` 0.11. Now 0.12 is required.
 
 ## Unreleased
 
+Support `base` 4.16 (GHC 9.2)
+
 Raise `base` lower bound to 4.14 (GHC 8.10)
