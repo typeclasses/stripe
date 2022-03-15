@@ -36,6 +36,6 @@ Support GHC 9.0, `bytestring` 0.11
 
 Add standard instances to many types
 
-# 1.0.3.1 - 2022-01-09
+## 1.0.3.1 - 2022-01-09
 
 Support GHC 9.2
