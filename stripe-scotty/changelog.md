@@ -34,7 +34,7 @@ Support `aeson` 2.0, drop support for previous versions
 
 Drop support for `scotty` 0.11. Now 0.12 is required.
 
-## Unreleased
+## 1.1.0.2 - 2022-03-15
 
 Support `base` 4.16 (GHC 9.2)
 
