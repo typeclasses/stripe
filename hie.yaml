@@ -1,0 +1,12 @@
+cradle:
+  cabal:
+    - path: "./stripe-concepts/library"
+      component: "lib:stripe-concepts"
+    - path: "./stripe-scotty/library"
+      component: "lib:stripe-scotty"
+    - path: "./stripe-signature/library"
+      component: "lib:stripe-signature"
+    - path: "./stripe-signature/test"
+      component: "test:test-stripe-signature"
+    - path: "./stripe-wreq/library"
+      component: "lib:stripe-wreq"
