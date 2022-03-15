@@ -35,3 +35,9 @@ Support GHC 9.0, `bytestring` 0.11
 Support `aeson` 2.0, drop support for previous versions
 
 Support `lens` 5.1
+
+## Unreleased
+
+Raise `base` lower bound to 4.14 (GHC 8.10)
+
+Raise `lens` lower bound to 5.0

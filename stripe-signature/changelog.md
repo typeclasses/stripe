@@ -39,3 +39,7 @@ Add some tests for the `isSigValid` function
 ## 1.0.0.14 - 2022-01-09
 
 Support GHC 9.2
+
+## Unreleased
+
+Raise `base` lower bound to 4.14 (GHC 8.10)

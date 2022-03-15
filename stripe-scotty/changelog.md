@@ -33,3 +33,7 @@ Generalize `ScottyM` to `ScottyT`
 Support `aeson` 2.0, drop support for previous versions
 
 Drop support for `scotty` 0.11. Now 0.12 is required.
+
+## Unreleased
+
+Raise `base` lower bound to 4.14 (GHC 8.10)
