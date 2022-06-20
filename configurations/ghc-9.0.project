@@ -1,7 +1,8 @@
 packages: stripe-concepts, stripe-scotty, stripe-signature, stripe-wreq
 
 constraints:
-    base == 4.15.*
+    aeson == 2.0.*
+  , base == 4.15.*
   , bytestring == 0.11.*
   , cryptohash-sha256 == 0.11.102.1
   , lens == 5.1.*
