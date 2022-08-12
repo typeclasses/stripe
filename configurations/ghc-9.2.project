@@ -3,3 +3,4 @@ packages: stripe-concepts, stripe-scotty, stripe-signature, stripe-wreq
 constraints:
     aeson == 2.1.*
   , base == 4.16.*
+  , lens == 5.2.*
