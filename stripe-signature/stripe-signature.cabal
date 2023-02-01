@@ -58,4 +58,4 @@ test-suite test-stripe-signature
       , bytestring ^>= 0.10 || ^>= 0.11
       , stripe-concepts ^>= 1.0
       , stripe-signature
-      , text ^>= 1.2
+      , text ^>= 1.2 || text ^>= 2.0
