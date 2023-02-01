@@ -1,3 +1,6 @@
+To test, run `nix-build`. This will build and test the package with all
+supported GHC and dependency versions.
+
 Packages in this repository:
 
 - [stripe-concepts] is a minimal package that just defines a common set of types
