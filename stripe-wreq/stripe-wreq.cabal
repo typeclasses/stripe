@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: stripe-wreq
-version: 1.0.1.14
+version: 1.0.1.15
 
 synopsis: Use the Stripe API via Wreq
 category: Web
