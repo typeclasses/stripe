@@ -35,10 +35,10 @@ library
 
     build-depends:
         aeson ^>= 2.0 || ^>= 2.1
-      , base ^>= 4.14 || ^>= 4.15 || ^>= 4.16
+      , base ^>= 4.14 || ^>= 4.15 || ^>= 4.16 || ^>= 4.17
       , bytestring ^>= 0.10 || ^>= 0.11
       , http-types ^>= 0.12
       , scotty ^>= 0.12
       , stripe-concepts ^>= 1.0
       , stripe-signature ^>= 1.0
-      , text ^>= 1.2
+      , text ^>= 1.2 || ^>= 2.0

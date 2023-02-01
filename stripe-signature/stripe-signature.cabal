@@ -37,12 +37,12 @@ library
         Stripe.Signature
 
     build-depends:
-        base ^>= 4.14 || ^>= 4.15 || ^>= 4.16
+        base ^>= 4.14 || ^>= 4.15 || ^>= 4.16 || ^>= 4.17
       , base16-bytestring ^>= 1.0
       , bytestring ^>= 0.10 || ^>= 0.11
       , cryptohash-sha256 ^>= 0.11.101
       , stripe-concepts ^>= 1.0
-      , text ^>= 1.2
+      , text ^>= 1.2 || ^>= 2.0
 
 test-suite test-stripe-signature
     default-language: Haskell2010
@@ -58,4 +58,4 @@ test-suite test-stripe-signature
       , bytestring ^>= 0.10 || ^>= 0.11
       , stripe-concepts ^>= 1.0
       , stripe-signature
-      , text ^>= 1.2
+      , text ^>= 1.2 || ^>= 2.0
