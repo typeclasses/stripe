@@ -24,14 +24,9 @@ license-file: license.txt
 
 extra-source-files: *.md
 
-library
-    hs-source-dirs: library
+common base
     default-language: Haskell2010
     ghc-options: -Wall
-
-    exposed-modules:
-        Stripe.Signature
-
     build-depends:
       , base ^>= 4.14 || ^>= 4.15 || ^>= 4.16 || ^>= 4.17
       , base16-bytestring ^>= 1.0
@@ -40,18 +35,14 @@ library
       , stripe-concepts ^>= 1.0
       , text ^>= 1.2 || ^>= 2.0
 
+library
+    import: base
+    hs-source-dirs: library
+    exposed-modules: Stripe.Signature
+
 test-suite test-stripe-signature
-    default-language: Haskell2010
+    import: base
     hs-source-dirs: test
     type: exitcode-stdio-1.0
     main-is: test.hs
-    ghc-options: -Wall
-
-    build-depends:
-      , base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
-          || ^>= 4.15 || ^>= 4.16
-      , base16-bytestring ^>= 1.0
-      , bytestring ^>= 0.10 || ^>= 0.11
-      , stripe-concepts ^>= 1.0
-      , stripe-signature
-      , text ^>= 1.2 || ^>= 2.0
+    build-depends: stripe-signature
