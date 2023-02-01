@@ -1,8 +1,7 @@
-cabal-version: 2.0
+cabal-version: 3.0
 
 name: stripe-signature
 version: 1.0.0.15
-
 synopsis: Verification of Stripe webhook signatures
 category: Web
 
@@ -23,10 +22,7 @@ copyright: 2019-2021 Mission Valley Software LLC
 license: MIT
 license-file: license.txt
 
-build-type: Simple
-
-extra-source-files:
-    changelog.md
+extra-source-files: *.md
 
 library
     hs-source-dirs: library
@@ -37,7 +33,7 @@ library
         Stripe.Signature
 
     build-depends:
-        base ^>= 4.14 || ^>= 4.15 || ^>= 4.16 || ^>= 4.17
+      , base ^>= 4.14 || ^>= 4.15 || ^>= 4.16 || ^>= 4.17
       , base16-bytestring ^>= 1.0
       , bytestring ^>= 0.10 || ^>= 0.11
       , cryptohash-sha256 ^>= 0.11.101
@@ -52,7 +48,7 @@ test-suite test-stripe-signature
     ghc-options: -Wall
 
     build-depends:
-        base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
+      , base ^>= 4.10 || ^>= 4.11 || ^>= 4.12 || ^>= 4.13 || ^>= 4.14
           || ^>= 4.15 || ^>= 4.16
       , base16-bytestring ^>= 1.0
       , bytestring ^>= 0.10 || ^>= 0.11
