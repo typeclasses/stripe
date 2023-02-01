@@ -13,7 +13,7 @@ Packages in this repository:
 
 - [stripe-scotty] provides support for writing a Stripe webhook server using
   [scotty].
-  
+
 - [stripe-wreq] helps you make requests to the Stripe API in conjunction with
   the [wreq] package. This is a minimal library that makes no attempt obscure
   either its underpinnings in Wreq or any of the details of the Stripe API.
@@ -26,5 +26,3 @@ Packages in this repository:
   [stripe-signature]: https://hackage.haskell.org/package/stripe-signature
   [stripe-wreq]:      https://hackage.haskell.org/package/stripe-wreq
   [wreq]:             https://hackage.haskell.org/package/wreq
-
-  
