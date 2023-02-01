@@ -5,14 +5,11 @@ version: 1.0.1.15
 synopsis: Use the Stripe API via Wreq
 category: Web
 
-description:
-    This package helps you make requests to the
-    <https://stripe.com/ Stripe> API in conjunction with
-    the <https://hackage.haskell.org/package/wreq wreq> package.
-    This is a minimal library that makes no attempt obscure
-    either its underpinnings in Wreq or any of the details of the
-    Stripe API. Responses are returned as
-    <https://hackage.haskell.org/package/aeson aeson> values.
+description: This package helps you make requests to the Stripe API
+    in conjunction with the wreq package. This is a minimal library
+    that makes no attempt obscure either its underpinnings in Wreq
+    or any of the details of the Stripe API. Responses are returned
+    as aeson values.
 
 homepage:    https://github.com/typeclasses/stripe
 bug-reports: https://github.com/typeclasses/stripe/issues
