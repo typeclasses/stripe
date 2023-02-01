@@ -39,7 +39,3 @@ Add standard instances to many types
 ## 1.0.3.1 - 2022-01-09
 
 Support GHC 9.2
-
-## Unreleased
-
-Raise `base` lower bound to 4.14 (GHC 8.10)
