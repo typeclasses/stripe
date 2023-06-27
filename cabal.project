@@ -1,1 +1,1 @@
-packages: stripe-concepts, stripe-scotty, stripe-signature, stripe-wreq
+packages: stripe-concepts, stripe-signature, stripe-wreq
