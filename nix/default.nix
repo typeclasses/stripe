@@ -49,9 +49,13 @@ let
           # x = new.callPackage ./haskell/x.nix { };
         };
       };
+      ghc-9-8 = makeTestConfiguration {
+        ghcVersion = "ghc98";
+        pkgs = unstable;
+      };
       all = pkgs.symlinkJoin {
         name = "stripe-tests";
-        paths = [ ghc-9-2 ghc-9-4 ghc-9-6 ];
+        paths = [ ghc-9-2 ghc-9-4 ghc-9-6 ghc-9-8 ];
       };
     };
 
